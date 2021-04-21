@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
- * @ORM\Table(name="catalog_product")
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
-class Product
+class Category
 {
     /**
      * @ORM\Id
@@ -19,24 +18,19 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=20)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="decimal", precision=6, scale=2)
+     * @ORM\Column(type="string", length=7)
      */
-    private $price;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $illustration;
+    private $color;
 
     public function getId(): ?int
     {
@@ -67,26 +61,14 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?string
+    public function getColor(): ?string
     {
-        return $this->price;
+        return $this->color;
     }
 
-    public function setPrice(string $price): self
+    public function setColor(string $color): self
     {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getIllustration(): ?string
-    {
-        return $this->illustration;
-    }
-
-    public function setIllustration(?string $illustration): self
-    {
-        $this->illustration = $illustration;
+        $this->color = $color;
 
         return $this;
     }

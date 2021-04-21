@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Form\ProductType;
-use App\Repository\ProductRepository;
+use App\Entity\Category;
+use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,33 +12,33 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @Route("/product", name="product")
+ * @Route("/categor", name="category")
  */
-class ProductController extends AbstractController
+class CategoryController extends AbstractController
 {
 
     // Index
     // --
-    // url : site.com/products
-    // name: product:index
+    // url : site.com/categories
+    // name: category:index
 
     /**
-     * @Route("s", name=":index", methods={"HEAD","GET"})
+     * @Route("ies", name=":index", methods={"HEAD","GET"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(CategoryRepository $categoryRepository): Response
     {
-        // Liste des livres
+        // Liste des categories
         // --
 
-        // $products = $pdo->query("SELECT * FORM catalog_product");
-        $products = $productRepository->findAll();
+        // $categories = $pdo->query("SELECT * FORM catalog_category");
+        $categories = $categoryRepository->findAll();
 
 
         // Reponse HTTP
         // -- 
 
-        return $this->render('product/index.html.twig', [
-            'products' => $products
+        return $this->render('category/index.html.twig', [
+            'categories' => $categories
         ]);
     }
 
@@ -46,11 +46,11 @@ class ProductController extends AbstractController
 
     // Create
     // --
-    // url : site.com/product
-    // name: product:create
+    // url : site.com/category
+    // name: category:create
 
     /**
-     * @Route("", name=":create", methods={"HEAD","GET","POST"})
+     * @Route("y", name=":create", methods={"HEAD","GET","POST"})
      */
     public function create(Request $request): Response
     {
@@ -58,11 +58,11 @@ class ProductController extends AbstractController
         // --
 
         // Nouvelle entité
-        $product = new Product;
+        $category = new Category;
 
         // Creation du formulaire
-        $form = $this->createForm(ProductType::class, $product);
-        // $a = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(CategoryType::class, $category);
+        // $a = $this->createForm(CategoryType::class, $category);
 
         // On capte la methode de requête HTTP
         $form->handleRequest( $request );
@@ -76,31 +76,31 @@ class ProductController extends AbstractController
         //     $description = $_POST['description'];
         //     // Controle des données
         //     // Ajout en BDD
-        //     $pdo->query("INSERT INTO product ('name') VALUE (\"".$name."\")");
+        //     $pdo->query("INSERT INTO category ('name') VALUE (\"".$name."\")");
         // }
         if ($form->isSubmitted() && $form->isValid())
         {
             // Recupération du Manager d'Entité (Entity Manager)
             $em = $this->getDoctrine()->getManager();
 
-            // Preparation de la requete sur l'objet $product modifié par le formulaire
-            $em->persist( $product );
+            // Preparation de la requete sur l'objet $category modifié par le formulaire
+            $em->persist( $category );
 
             // Execute la requete
             $em->flush();
 
 
 
-            // Redirige l'utilisateur vers la page du livre
+            // Redirige l'utilisateur vers la page du categorie
             // --
 
             // Creation du message de validation de la requete
-            $this->addFlash('success', "Le livre ".$product->getName()." a été créé !");
+            $this->addFlash('success', "Le categorie ".$category->getName()." a été créé !");
 
 
             // Redirection
-            return $this->redirectToRoute('product:read', [
-                'id' => $product->getId()
+            return $this->redirectToRoute('category:read', [
+                'id' => $category->getId()
             ]);
 
         }
@@ -113,7 +113,7 @@ class ProductController extends AbstractController
         $form = $form->createView();
         // $b = $a->createView();
 
-        return $this->render('product/create.html.twig', [
+        return $this->render('category/create.html.twig', [
 
             // Transmission du formulaire à la vue twig
             'form' => $form,
@@ -126,16 +126,16 @@ class ProductController extends AbstractController
 
     // Read
     // --
-    // url : site.com/product/42
-    // name: product:read
+    // url : site.com/category/42
+    // name: category:read
 
     /**
-     * @Route("/{id}", name=":read", methods={"HEAD","GET"})
+     * @Route("y/{id}", name=":read", methods={"HEAD","GET"})
      */
-    public function read(Product $product): Response
+    public function read(Category $category): Response
     {
-        return $this->render('product/read.html.twig', [
-            'product' => $product
+        return $this->render('category/read.html.twig', [
+            'category' => $category
         ]);
     }
 
@@ -143,22 +143,22 @@ class ProductController extends AbstractController
 
     // Update
     // --
-    // url : site.com/product/42/edit
-    // name: product:update
+    // url : site.com/category/42/edit
+    // name: category:update
 
     /**
-     * @Route("/{id}/edit", name=":update", methods={"HEAD","GET","POST"})
+     * @Route("y/{id}/edit", name=":update", methods={"HEAD","GET","POST"})
      */
-    public function update(Product $product, Request $request): Response
+    public function update(Category $category, Request $request): Response
     {
         // Creation du forlmulaire
         // --
 
         // Nouvelle entité
-        // /!\ l'entité est déja créée avec le paramètre $product de la méthode create()
+        // /!\ l'entité est déja créée avec le paramètre $category de la méthode create()
 
         // Creation du formulaire
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(CategoryType::class, $category);
 
         // On capte la methode de requête HTTP
         $form->handleRequest( $request );
@@ -171,24 +171,24 @@ class ProductController extends AbstractController
             // Recupération du Manager d'Entité (Entity Manager)
             $em = $this->getDoctrine()->getManager();
 
-            // Preparation de la requete sur l'objet $product modifié par le formulaire
-            $em->persist( $product );
+            // Preparation de la requete sur l'objet $category modifié par le formulaire
+            $em->persist( $category );
 
             // Execute la requete
             $em->flush();
 
 
 
-            // Redirige l'utilisateur vers la page du livre
+            // Redirige l'utilisateur vers la page du categorie
             // --
 
             // Creation du message de validation de la requete
-            $this->addFlash('success', "Le livre ".$product->getName()." a été modifié !");
+            $this->addFlash('success', "Le categorie ".$category->getName()." a été modifié !");
 
 
             // Redirection
-            return $this->redirectToRoute('product:read', [
-                'id' => $product->getId()
+            return $this->redirectToRoute('category:read', [
+                'id' => $category->getId()
             ]);
 
         }
@@ -200,8 +200,8 @@ class ProductController extends AbstractController
         // Creation de la vue du formulaire
         $form = $form->createView();
 
-        return $this->render('product/update.html.twig', [
-            'product' => $product,
+        return $this->render('category/update.html.twig', [
+            'category' => $category,
             'form' => $form,
         ]);
     }
@@ -210,13 +210,13 @@ class ProductController extends AbstractController
 
     // Delete
     // --
-    // url : site.com/product/42/delete
-    // name: product:delete
+    // url : site.com/category/42/delete
+    // name: category:delete
 
     /**
-     * @Route("/{id}/delete", name=":delete", methods={"HEAD","GET","DELETE"})
+     * @Route("y/{id}/delete", name=":delete", methods={"HEAD","GET","DELETE"})
      */
-    public function delete(Product $product, Request $request): Response
+    public function delete(Category $category, Request $request): Response
     {
         // Test de la methode HTTP / soumission du formulaire
         // --
@@ -227,30 +227,30 @@ class ProductController extends AbstractController
             // Recupération du Manager d'Entité (Entity Manager)
             $em = $this->getDoctrine()->getManager();
 
-            // Preparation de la requete de suppression sur l'objet $product 
+            // Preparation de la requete de suppression sur l'objet $category 
             // /!\ on utilise "remove" et non "persist"
-            $em->remove( $product );
+            $em->remove( $category );
 
             // Execute la requete
             $em->flush();
 
 
-            // Redirection de l'utilisateur vers la liste des livres
+            // Redirection de l'utilisateur vers la liste des categories
             // --
 
             // Message flash de confirmation de la suppression
-            $this->addFlash('success', "Le livre ". $product->getName() ." à été supprimé.");
+            $this->addFlash('success', "Le categorie ". $category->getName() ." à été supprimé.");
 
             // Redirection
-            return $this->redirectToRoute('product:index');
+            return $this->redirectToRoute('category:index');
         }
 
 
         // Affichage du message de confirmation d'execution de la suppression
         // --
 
-        return $this->render('product/delete.html.twig', [
-            'product' => $product,
+        return $this->render('category/delete.html.twig', [
+            'category' => $category,
         ]);
     }
 }

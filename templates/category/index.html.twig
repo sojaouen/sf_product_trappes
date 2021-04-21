@@ -2,7 +2,7 @@
 
 
 {# Page Settings #}
-{% set title = "Tous nos produits" %}
+{% set title = "Les catégories" %}
 
 
 {# Page Title #}
@@ -22,7 +22,7 @@
 
     {# Barre d'actions (ajouter un produit) #}
     <div class="page-toolbar text-right mt-3">
-        <a href="{{ path('product:create') }}" class="btn btn-primary btn-sm"><i class="ri-add-circle-line"></i> Ajouter un produit</a>
+        <a href="{{ path('category:create') }}" class="btn btn-primary btn-sm"><i class="ri-add-circle-line"></i> Ajouter une catégorie</a>
     </div>
 
 
@@ -32,7 +32,7 @@
         <thead class="thead-dark">
             <tr>
                 <th>#</th>
-                <th>Product Name</th>
+                <th>Category Name</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -41,17 +41,17 @@
         <tbody>
 
             {# Boucle sur la liste des produits #}
-            {% for product in products %}
+            {% for category in categories %}
             <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
                 <td>
 
                     {# Lien vers la page de modification #}
-                    <a href="{{ path('product:update', {id: product.id}) }}">edit</a>
+                    <a href="{{ path('category:update', {id: category.id}) }}">edit</a>
 
                     {# Lien vers la page de detail #}
-                    <a href="{{ path('product:read', {id: product.id}) }}">show</a>
+                    <a href="{{ path('category:read', {id: category.id}) }}">show</a>
                     
                 </td>
             </tr>

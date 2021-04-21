@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+{# Page Settings #}
+{% set title = "Info sur le produit : " ~ product.name %}
+
+
+{# Page Title #}
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+
+{# Page Content #}
+{% block body %}
+<div class="container">
+
+
+    {# Header / Titre de la page #}
+    <header class="page-header">
+        <h1 class="page-title">{{ title }}</h1>
+    </header>
+
+
+    {# Barre d'actions (ajouter un produit) #}
+    <div class="page-toolbar text-right mt-3">
+        <a href="{{ path('product:create') }}" class="btn btn-primary btn-sm"><i class="ri-add-circle-line"></i> Ajouter un produit</a>
+        <a href="{{ path('product:update', {id: product.id})}}" class="btn btn-warning btn-sm">Modifer la fiche produit</a>
+    </div>
+
+
+    {# Info du Produit #}
+    <table class="table table-hover mt-5">
+        <tbody>
+            <tr>
+                <td>ID</td>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <td>NAME</td>
+                <td>{{ product.name }}</td>
+            </tr>
+            <tr>
+                <td>DESCRIPTION</td>
+                <td>{{ product.description }}</td>
+            </tr>
+            <tr>
+                <td>PRICE</td>
+                <td>{{ product.price }}</td>
+            </tr>
+            <tr>
+                <td>ILLUSTRATION</td>
+                <td>{{ product.illustration }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</div>
+{% endblock %}

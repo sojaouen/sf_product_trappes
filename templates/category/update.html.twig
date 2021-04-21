@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+
+{# Page Settings #}
+{% set title = "Modification de la catégorie : " ~ category.name %}
+
+
+{# Page Title #}
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+
+{# Page Content #}
+{% block body %}
+<div class="container">
+
+
+    {# Header / Titre de la page #}
+    <header class="page-header">
+        <h1 class="page-title">{{ title }}</h1>
+    </header>
+
+
+    {# Barre d'actions (ajouter un produit) #}
+    <div class="page-toolbar text-right mt-3">
+        <a href="{{ path('category:read', {id: category.id}) }}" class="btn btn-secondary btn-sm">Annuler</a>
+        <a href="{{ path('category:index') }}" class="btn btn-secondary btn-sm">Retour à la liste des catégories</a>
+        <a href="{{ path('category:delete', {id: category.id}) }}" class="btn btn-danger btn-sm">Supprimer la catégorie</a>
+    </div>
+
+
+    {# Formulaire de creation du produit #}
+    {% include "category/_form.html.twig" with {
+        form: form,
+        btn_label: "Modifier la catégorie"
+    } only %}
+
+
+</div>
+{% endblock %}

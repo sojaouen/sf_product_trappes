@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
- * @ORM\Table(name="catalog_product")
+ * @ORM\Entity(repositoryClass=BookRepository::class)
  */
-class Product
+class Book
 {
     /**
      * @ORM\Id
@@ -21,7 +20,7 @@ class Product
     /**
      * @ORM\Column(type="string", length=80)
      */
-    private $name;
+    private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -29,28 +28,23 @@ class Product
     private $description;
 
     /**
-     * @ORM\Column(type="decimal", precision=6, scale=2)
+     * @ORM\Column(type="decimal", precision=5, scale=2)
      */
     private $price;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $illustration;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -75,18 +69,6 @@ class Product
     public function setPrice(string $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getIllustration(): ?string
-    {
-        return $this->illustration;
-    }
-
-    public function setIllustration(?string $illustration): self
-    {
-        $this->illustration = $illustration;
 
         return $this;
     }

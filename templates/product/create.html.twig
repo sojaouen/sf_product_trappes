@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+
+{# Page Settings #}
+{% set title = "Ajouter un nouveau produit" %}
+
+
+{# Page Title #}
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+
+{# Page Content #}
+{% block body %}
+<div class="container">
+
+
+    {# Header / Titre de la page #}
+    <header class="page-header">
+        <h1 class="page-title">{{ title }}</h1>
+    </header>
+
+    {# Formulaire de creation du produit #}
+    {% include "product/_form.html.twig" with {form: form} only %}
+    {# {% include "product/_form.html.twig" with {d: c} only %} #}
+
+</div>
+{% endblock %}

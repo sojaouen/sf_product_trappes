@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+
+{# Page Settings #}
+{% set title = "Suppression du livre : " ~ book.title %}
+
+
+{# Page Title #}
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+
+{# Page Content #}
+{% block body %}
+<div class="container">
+
+
+    {# Header / Titre de la page #}
+    <header class="page-header">
+        <h1 class="page-title">{{ title }}</h1>
+    </header>
+
+
+    {# Barre d'actions (ajouter un livre) #}
+    <div class="page-toolbar text-right mt-3">
+        <a href="{{ path('book:read', {id: book.id}) }}" class="btn btn-secondary btn-sm">Annuler</a>
+        <a href="{{ path('book:index') }}" class="btn btn-secondary btn-sm">Retour à la liste des livres</a>
+    </div>
+
+
+    <p>Vous êtes sur le point de supprimer le livre {{ book.title }}, voulez-vous continuer ?</p>
+
+    {# Formulaire de confirmation de suppression du livre #}
+    <form method="POST" action="{{ path('book:delete', {id: book.id}) }}">
+
+        {# Ajouter un champ caché pour simuler la methode DELETE #}
+        <input type="hidden" name="_method" value="DELETE">
+
+        {# Boutton d'annulation #}
+        <a href="{{ path('book:read', {id: book.id}) }}" class="btn btn-secondary btn-sm">Non</a>
+
+        {# Boutton de confirmation #}
+        <button type="submit" class="btn btn-danger btn-sm">Oui</button>
+
+    </form>
+
+
+</div>
+{% endblock %}

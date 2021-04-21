@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+
+{# Page Settings #}
+{% set title = "Suppression de la catégorie : " ~ category.name %}
+
+
+{# Page Title #}
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+
+{# Page Content #}
+{% block body %}
+<div class="container">
+
+
+    {# Header / Titre de la page #}
+    <header class="page-header">
+        <h1 class="page-title">{{ title }}</h1>
+    </header>
+
+
+    {# Barre d'actions (ajouter un produit) #}
+    <div class="page-toolbar text-right mt-3">
+        <a href="{{ path('category:read', {id: category.id}) }}" class="btn btn-secondary btn-sm">Annuler</a>
+        <a href="{{ path('category:index') }}" class="btn btn-secondary btn-sm">Retour à la liste des catégories</a>
+    </div>
+
+
+    <p>Vous êtes sur le point de supprimer la catégorie {{ category.name }}, voulez-vous continuer ?</p>
+
+    {# Formulaire de confirmation de suppression du produit #}
+    <form method="POST" action="{{ path('category:delete', {id: category.id}) }}">
+
+        {# Ajouter un champ caché pour simuler la methode DELETE #}
+        <input type="hidden" name="_method" value="DELETE">
+
+        {# Boutton d'annulation #}
+        <a href="{{ path('category:read', {id: category.id}) }}" class="btn btn-secondary btn-sm">Non</a>
+
+        {# Boutton de confirmation #}
+        <button type="submit" class="btn btn-danger btn-sm">Oui</button>
+
+    </form>
+
+
+</div>
+{% endblock %}

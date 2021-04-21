@@ -2,43 +2,42 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Form\ProductType;
-use App\Repository\ProductRepository;
+use App\Entity\Book;
+use App\Form\BookType;
+use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
- * @Route("/product", name="product")
+ * @Route("/book", name="book")
  */
-class ProductController extends AbstractController
+class BookController extends AbstractController
 {
 
     // Index
     // --
-    // url : site.com/products
-    // name: product:index
+    // url : site.com/books
+    // name: book:index
 
     /**
      * @Route("s", name=":index", methods={"HEAD","GET"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(BookRepository $bookRepository): Response
     {
-        // Liste des livres
+        // Liste des produits
         // --
 
-        // $products = $pdo->query("SELECT * FORM catalog_product");
-        $products = $productRepository->findAll();
+        // $books = $pdo->query("SELECT * FORM catalog_book");
+        $books = $bookRepository->findAll();
 
 
         // Reponse HTTP
         // -- 
 
-        return $this->render('product/index.html.twig', [
-            'products' => $products
+        return $this->render('book/index.html.twig', [
+            'books' => $books
         ]);
     }
 
@@ -46,8 +45,8 @@ class ProductController extends AbstractController
 
     // Create
     // --
-    // url : site.com/product
-    // name: product:create
+    // url : site.com/book
+    // name: book:create
 
     /**
      * @Route("", name=":create", methods={"HEAD","GET","POST"})
@@ -58,11 +57,11 @@ class ProductController extends AbstractController
         // --
 
         // Nouvelle entité
-        $product = new Product;
+        $book = new Book;
 
         // Creation du formulaire
-        $form = $this->createForm(ProductType::class, $product);
-        // $a = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(BookType::class, $book);
+        // $a = $this->createForm(BookType::class, $book);
 
         // On capte la methode de requête HTTP
         $form->handleRequest( $request );
@@ -76,31 +75,31 @@ class ProductController extends AbstractController
         //     $description = $_POST['description'];
         //     // Controle des données
         //     // Ajout en BDD
-        //     $pdo->query("INSERT INTO product ('name') VALUE (\"".$name."\")");
+        //     $pdo->query("INSERT INTO book ('name') VALUE (\"".$name."\")");
         // }
         if ($form->isSubmitted() && $form->isValid())
         {
             // Recupération du Manager d'Entité (Entity Manager)
             $em = $this->getDoctrine()->getManager();
 
-            // Preparation de la requete sur l'objet $product modifié par le formulaire
-            $em->persist( $product );
+            // Preparation de la requete sur l'objet $book modifié par le formulaire
+            $em->persist( $book );
 
             // Execute la requete
             $em->flush();
 
 
 
-            // Redirige l'utilisateur vers la page du livre
+            // Redirige l'utilisateur vers la page du produit
             // --
 
             // Creation du message de validation de la requete
-            $this->addFlash('success', "Le livre ".$product->getName()." a été créé !");
+            $this->addFlash('success', "Le produit ".$book->getTitle()." a été créé !");
 
 
             // Redirection
-            return $this->redirectToRoute('product:read', [
-                'id' => $product->getId()
+            return $this->redirectToRoute('book:read', [
+                'id' => $book->getId()
             ]);
 
         }
@@ -113,7 +112,7 @@ class ProductController extends AbstractController
         $form = $form->createView();
         // $b = $a->createView();
 
-        return $this->render('product/create.html.twig', [
+        return $this->render('book/create.html.twig', [
 
             // Transmission du formulaire à la vue twig
             'form' => $form,
@@ -126,16 +125,16 @@ class ProductController extends AbstractController
 
     // Read
     // --
-    // url : site.com/product/42
-    // name: product:read
+    // url : site.com/book/42
+    // name: book:read
 
     /**
      * @Route("/{id}", name=":read", methods={"HEAD","GET"})
      */
-    public function read(Product $product): Response
+    public function read(Book $book): Response
     {
-        return $this->render('product/read.html.twig', [
-            'product' => $product
+        return $this->render('book/read.html.twig', [
+            'book' => $book
         ]);
     }
 
@@ -143,22 +142,22 @@ class ProductController extends AbstractController
 
     // Update
     // --
-    // url : site.com/product/42/edit
-    // name: product:update
+    // url : site.com/book/42/edit
+    // name: book:update
 
     /**
      * @Route("/{id}/edit", name=":update", methods={"HEAD","GET","POST"})
      */
-    public function update(Product $product, Request $request): Response
+    public function update(Book $book, Request $request): Response
     {
         // Creation du forlmulaire
         // --
 
         // Nouvelle entité
-        // /!\ l'entité est déja créée avec le paramètre $product de la méthode create()
+        // /!\ l'entité est déja créée avec le paramètre $book de la méthode create()
 
         // Creation du formulaire
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(BookType::class, $book);
 
         // On capte la methode de requête HTTP
         $form->handleRequest( $request );
@@ -171,24 +170,24 @@ class ProductController extends AbstractController
             // Recupération du Manager d'Entité (Entity Manager)
             $em = $this->getDoctrine()->getManager();
 
-            // Preparation de la requete sur l'objet $product modifié par le formulaire
-            $em->persist( $product );
+            // Preparation de la requete sur l'objet $book modifié par le formulaire
+            $em->persist( $book );
 
             // Execute la requete
             $em->flush();
 
 
 
-            // Redirige l'utilisateur vers la page du livre
+            // Redirige l'utilisateur vers la page du produit
             // --
 
             // Creation du message de validation de la requete
-            $this->addFlash('success', "Le livre ".$product->getName()." a été modifié !");
+            $this->addFlash('success', "Le produit ".$book->getTitle()." a été modifié !");
 
 
             // Redirection
-            return $this->redirectToRoute('product:read', [
-                'id' => $product->getId()
+            return $this->redirectToRoute('book:read', [
+                'id' => $book->getId()
             ]);
 
         }
@@ -200,8 +199,8 @@ class ProductController extends AbstractController
         // Creation de la vue du formulaire
         $form = $form->createView();
 
-        return $this->render('product/update.html.twig', [
-            'product' => $product,
+        return $this->render('book/update.html.twig', [
+            'book' => $book,
             'form' => $form,
         ]);
     }
@@ -210,13 +209,13 @@ class ProductController extends AbstractController
 
     // Delete
     // --
-    // url : site.com/product/42/delete
-    // name: product:delete
+    // url : site.com/book/42/delete
+    // name: book:delete
 
     /**
      * @Route("/{id}/delete", name=":delete", methods={"HEAD","GET","DELETE"})
      */
-    public function delete(Product $product, Request $request): Response
+    public function delete(Book $book, Request $request): Response
     {
         // Test de la methode HTTP / soumission du formulaire
         // --
@@ -227,30 +226,30 @@ class ProductController extends AbstractController
             // Recupération du Manager d'Entité (Entity Manager)
             $em = $this->getDoctrine()->getManager();
 
-            // Preparation de la requete de suppression sur l'objet $product 
+            // Preparation de la requete de suppression sur l'objet $book 
             // /!\ on utilise "remove" et non "persist"
-            $em->remove( $product );
+            $em->remove( $book );
 
             // Execute la requete
             $em->flush();
 
 
-            // Redirection de l'utilisateur vers la liste des livres
+            // Redirection de l'utilisateur vers la liste des produits
             // --
 
             // Message flash de confirmation de la suppression
-            $this->addFlash('success', "Le livre ". $product->getName() ." à été supprimé.");
+            $this->addFlash('success', "Le produit ". $book->getTitle() ." à été supprimé.");
 
             // Redirection
-            return $this->redirectToRoute('product:index');
+            return $this->redirectToRoute('book:index');
         }
 
 
         // Affichage du message de confirmation d'execution de la suppression
         // --
 
-        return $this->render('product/delete.html.twig', [
-            'product' => $product,
+        return $this->render('book/delete.html.twig', [
+            'book' => $book,
         ]);
     }
 }

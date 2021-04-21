@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+
+{# Page Settings #}
+{% set title = "Info sur le livre : " ~ book.title %}
+
+
+{# Page Title #}
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+
+{# Page Content #}
+{% block body %}
+<div class="container">
+
+
+    {# Header / Titre de la page #}
+    <header class="page-header">
+        <h1 class="page-title">{{ title }}</h1>
+    </header>
+
+
+    {# Barre d'actions (ajouter un livre) #}
+    <div class="page-toolbar text-right mt-3">
+        <a href="{{ path('book:create') }}" class="btn btn-primary btn-sm"><i class="ri-add-circle-line"></i> Ajouter un livre</a>
+        <a href="{{ path('book:update', {id: book.id})}}" class="btn btn-warning btn-sm">Modifer la fiche livre</a>
+        <a href="{{ path('book:delete', {id: book.id}) }}" class="btn btn-danger btn-sm">Supprimer le livre</a>
+    </div>
+
+
+    {# Info du Livre #}
+    <table class="table table-hover mt-5">
+        <tbody>
+            <tr>
+                <td>ID</td>
+                <td>{{ book.id }}</td>
+            </tr>
+            <tr>
+                <td>NAME</td>
+                <td>{{ book.title }}</td>
+            </tr>
+            <tr>
+                <td>DESCRIPTION</td>
+                <td>{{ book.description }}</td>
+            </tr>
+            <tr>
+                <td>PRICE</td>
+                <td>{{ book.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+</div>
+{% endblock %}

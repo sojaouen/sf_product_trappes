@@ -1,3 +1,24 @@
 body {
     background-color: lightgray;
 }
+
+
+input[type=color].form-control {
+    width: 80px !important;
+}
+
+
+/* Selecteur de types */
+/* div, span, table {} */
+
+/* Selecteur de classes */
+/* .green, .red, .form-control {} */
+
+/* Selecteur d'ID */
+/* #IdDeLelement {} */
+
+/* Selecteur d'attribut */
+/* [type=color], [type] {}
+[class*=col-] {
+    border: 10px solid red;
+} */

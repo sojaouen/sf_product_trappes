@@ -1,0 +1,52 @@
+{# {{ form_start(d) }}
+{{ form_end(d) }} #}
+
+{{ form_start(form, {attr: {novalidate: "novalidate"}}) }}
+
+{# Product Name #}
+<div class="form-group">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name) }}
+    {{ form_errors(form.name) }}
+    {{ form_help(form.name) }}
+</div>
+
+{# Product Description #}
+<div class="form-group">
+    {{ form_label(form.description) }}
+    {{ form_widget(form.description) }}
+    {{ form_errors(form.description) }}
+    {{ form_help(form.description) }}
+</div>
+
+{# Product Color #}
+<div class="form-group">
+    {{ form_label(form.color) }}
+    {{ form_widget(form.color) }}
+    {{ form_errors(form.color) }}
+    {{ form_help(form.color) }}
+</div>
+
+{# Product Illustration #}
+{# <div class="form-group">
+    {{ form_label(form.illustration) }}
+    {{ form_widget(form.illustration) }}
+    {{ form_errors(form.illustration) }}
+    {{ form_help(form.illustration) }}
+</div> #}
+
+{# product Category #}
+{# <div class="form-group">
+    {{ form_label(form.categories) }}
+    {{ form_widget(form.categories) }}
+    {{ form_errors(form.categories) }}
+    {{ form_help(form.categories) }}
+</div> #}
+
+<div class="col-2">sss</div>
+
+<button type="submit">
+    {{ btn_label | default("Ajouter la categorie") }}
+</button>
+
+{{ form_end(form) }}
